@@ -1,4 +1,4 @@
-CREATE DATABASE  IF NOT EXISTS `cadastro` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE  IF NOT EXISTS `cadastro` /*!40100 DEFAULT CHARACTER SET utf8mb3 */ /*!80016 DEFAULT ENCRYPTION='N' */;
 USE `cadastro`;
 -- MySQL dump 10.13  Distrib 8.0.40, for Win64 (x86_64)
 --
@@ -25,12 +25,14 @@ DROP TABLE IF EXISTS `pessoas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pessoas` (
-  `nome` varchar(30) DEFAULT NULL,
-  `idade` tinyint DEFAULT NULL,
-  `sexo` char(1) DEFAULT NULL,
-  `peso` float DEFAULT NULL,
-  `altura` float DEFAULT NULL,
-  `nacionalidade` varchar(20) DEFAULT NULL
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nome` varchar(30) NOT NULL,
+  `nascimento` date DEFAULT NULL,
+  `sexo` enum('M','F') DEFAULT NULL,
+  `peso` decimal(5,2) DEFAULT NULL,
+  `altura` decimal(3,2) DEFAULT NULL,
+  `nacionalidade` varchar(20) DEFAULT 'Brasil',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -52,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-11-06 10:04:10
+-- Dump completed on 2024-11-06 10:46:29
