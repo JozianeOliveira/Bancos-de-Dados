@@ -1,0 +1,108 @@
+Curso de MySQL - Anotações.
+
+Curso em video - Guanabara. 25/08/19
+
+Dicas Xampp
+
+To start XAMPP form terminal on Ubuntu run following command.
+
+sudo /opt/lampp/lampp start
+
+http://localhost/ .....................to see XAMPP output screen.
+
+http://localhost/phpmyadmin/ ................to visit PHPMyAdmin.
+
+
+/opt/lampp/bin/mysql -uroot   => mariaDB no terminal
+
+
+drop database => apaga database.
+
+create database cadastro // cria database
+default character set utf8 // para codificação UTF8
+default collate utf8_general_ci; // para codificação UTF8
+describe (ou desc) // descreve 
+
+
+
+alter table pessoas add column xxxxx varchar(10); // adicionar coluna que será a última
+alter table pessoas drop column xxxxx; // remover coluna.
+alter table pessoas add column xxxxx varchar(10) after yyyy; // adiciona coluna após uma coluna especifica.
+alter table pessoas add column xxxxx varchar(10) first; // adiciona uma coluna que será a primeira.
+alter table pessoas modify column profissao varchar(30)//modifica o tipo primitivo
+alter table pessoas change column xxxxx yyyyy varchar(20); alterar o nome da coluna.
+select * from pessoas; // mostra dados (registro) da tabela.
+insert into xxxxx values ('aaa', 'bbb', 'ccc', 'ddd', 'eee', 'fff', 'ggg'); // insere registros
+update xxxxx set nome = 'yyy' where idunico = 'z'; para alterar um registro
+update xxxxx set nome = 'yyy', ano = '20xx' where idunico = 'z'; para alterar mais de uma coluna por registro.
+update cursos set ano = '2018', carga = '0' where ano = '2050' limit 1;//uso do 'limit' para evitar apagar muitos registros.
+delete from cursos where carga = '0' limit 1; deleta um registro.
+truncate table cursos; // deleta TODOS os registros da tabela
+
+
+
+
+create table if not exists cursos ( // cria se não ja existir a tabela
+	nome varchar(30) not null unique, // não pode ser unico e não pode repetir
+	descricao text, // primitivo 'text' é para textos e descrições longas.
+	carga int unsigned, // número inteiro e não negativo (por causa do unsigned
+	totaulas int,
+	ano year default '2016'
+) default charset = utf8;
+
+
+
+
+
+DDL comandos de definição:
+- create database
+- create table
+- alter table
+- drop table
+
+DML comandos de manipulação de dados:
+- insert into
+- update
+- delete
+- truncate
+
+DQL comandas para seleção de dados:
+- select
+
+
+
+===========================> COMANDOS SELECT <====================================
+
+select * from tabela; // seleciona e exibe todos registros da tabela.
+select * from tabela order by coluna; // seleciona e exibe todos registros da tabela ordenados por uma coluna (campo)
+select * from tabela order by coluna desc; // seleciona e exibe todos registros da tabela ordenados por uma coluna (campo) em ordem descendente "desc"
+select * from tabela order by coluna asc; // seleciona e exibe todos registros da tabela ordenados por uma coluna (campo)em ordem crescente "asc" (se não colocar nada também fica crescente.
+
+select coluna1, coluna2, colunaN from tabela; // seleciona e exibe registros da tabela somente da(s) coluna(s) especificadas (pode usar também o parametro "order by".
+select coluna1, coluna2, colunaN from tabela order by coluna1, coluna2, colunaN; // seleciona e exibe registros da tabela somente da(s) coluna(s) especificadas e ordenadas por uma coluna ou mais.
+select * from cursos where ano = 2016 order by nome; //exibe apenas os registros que tem ano = 2016.
+select nome, carga from cursos where ano = 2016 order by nome; // exibe registros especificos mas que tenham ano = 2016 e ainda ordena pelo nome. No "where" pode ser usado "<, >, <=, >=, !=, <>"
+select nome, ano from cursos where ano between 2014 and 2016; //exibe registros entre (between X and Y) uma faixa de valores de uma coluna especifica.
+select nome, ano from cursos where ano in (2014, 2016); //exibe registros especificos que estão dentro de determinados valores que estão dentro do "in".
+select nome, carga, totaulas from cursos where carga > 35 and totaulas < 30;// exibe registros especidicos que estão dentro de determinados valores especificados pela logica do "and", poderia ser também "or".
+select * from cursos where nome like 'a%'// aqui o uso do where com operador like permite filtrar registros com uso do coringa "%" que significa "nada" ou "qualquer quantidade de caracter".
+select * from cursos where nome like '_a'// aqui o uso do where com operador like permite filtrar registros com uso do coringa "_" que significa "um unico caracter".
+select distinct carga from cursos order by carga; // aqui o distinct serve para mostrar apenas uma vez cada ocorrencia de um registro.
+select count(*) from cursos where carga > 40; // count é uma função de agregação que serve pra mostra a quantidade de ocorrências.
+select max(carga) from cursos; // max ou min exibe a maior ou menor ocorrencia dentro de uma coluna especificada.
+select min(totaulas), nome from cursos where ano = 2016; //neste caso será exibido menor registro junto com o nome a ele associado, mas se houver mais de uma ocorrencia, somente a primeira que vai aparecer.
+select sum(totaulas) from cursos; // sum faz exibir a somatória de uma determinada coluna.
+select avg(totaulas) from cursos where ano = 2016; // avg exibe a média de uma determinada coluna.
+SELECT carga, COUNT(*) FROM cursos GROUP BY carga having count(nome) > 3; # Para uma melhor compreesão dos comandos "group by" e "having" pode-se consultar o arquivo de exercícios.
+
+
+
+
+
+
+
+
+
+
+
+
